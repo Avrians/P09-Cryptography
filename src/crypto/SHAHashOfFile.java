@@ -11,21 +11,21 @@ import java.security.NoSuchAlgorithmException;
  * @author avrians
  */
 
-public class MD5HashOfFile {
-    public static String hashFile(String file){
-        String hashed = "";
+public class SHAHashOfFile {
+    public static String hashFile(String file, String algorithm) {
+         String hashed = "";
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            MessageDigest sha = MessageDigest.getInstance(algorithm);
             FileInputStream fis = new FileInputStream(file);
             byte[]byteData = new byte[1024];
             int nRead;
             while ((nRead = fis.read(byteData)) != -1) {
-                md.update(byteData, 0, nRead);
+                sha.update(byteData, 0, nRead);
             }
-            byte[] mdBytes = md.digest();
+            byte[] shaBytes = sha.digest();
             StringBuilder sb =new StringBuilder();
-            for (int i = 0; i < mdBytes.length; i++) {
-                sb.append(Integer.toString((mdBytes[i] & 0xff)
+            for (int i = 0; i < shaBytes.length; i++) {
+                sb.append(Integer.toString((shaBytes[i] & 0xff)
                         + 0x100, 16).substring(1));
             }
             hashed = sb.toString();
@@ -35,7 +35,9 @@ public class MD5HashOfFile {
     }
     public static void main(String[] args) {
         String file = System.getProperty("user.dir") + File.separator + "manifest.mf";
-        System.out.println("File\t\t: "+file);
-        System.out.println("MD5 checksum\t: "+hashFile(file));
+        System.out.println("File\t: "+file);
+        System.out.println("SHA-1\t: "+hashFile(file, "SHA-1"));
+        System.out.println("SHA-256\t: "+hashFile(file, "SHA-256"));
+        System.out.println("SHA-512\t: "+hashFile(file, "SHA-512"));
     }
 }
