@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
  * @author avrians
  */
 public class MD5Hash {
+
     public static String hash(String data) {
         String hashed = "";
         try {
@@ -15,22 +16,21 @@ public class MD5Hash {
             md5.update(data.getBytes());
             byte[] byteData = md5.digest();
             StringBuilder sb = new StringBuilder();
-            for (int i =0; i < byteData.length; i++) {
-                sb.append(Integer.toString((byteData[i] & 0xff) + 
-                        0x100, 16).substring(1));
+            for (int i = 0; i < byteData.length; i++) {
+                sb.append(Integer.toString((byteData[i] & 0xff)
+                        + 0x100, 16).substring(1));
             }
             hashed = sb.toString();
-        } catch(NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             System.out.println("Eror bung");
         }
-        return  hashed;
+        return hashed;
     }
-    
+
     public static void main(String[] args) {
         String plainText = "PHB2019#300";
-        System.out.println("Plan Text\t"+plainText);
+        System.out.println("Plan Text\t" + plainText);
         String enkripsi = hash(plainText);
-        System.out.println("MD5 Has\t: "+enkripsi);
+        System.out.println("MD5 Has\t: " + enkripsi);
     }
 }
-

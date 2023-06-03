@@ -10,20 +10,20 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author avrians
  */
-
 public class MD5HashOfFile {
-    public static String hashFile(String file){
+
+    public static String hashFile(String file) {
         String hashed = "";
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             FileInputStream fis = new FileInputStream(file);
-            byte[]byteData = new byte[1024];
+            byte[] byteData = new byte[1024];
             int nRead;
             while ((nRead = fis.read(byteData)) != -1) {
                 md.update(byteData, 0, nRead);
             }
             byte[] mdBytes = md.digest();
-            StringBuilder sb =new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < mdBytes.length; i++) {
                 sb.append(Integer.toString((mdBytes[i] & 0xff)
                         + 0x100, 16).substring(1));
@@ -33,9 +33,10 @@ public class MD5HashOfFile {
         }
         return hashed;
     }
+
     public static void main(String[] args) {
         String file = System.getProperty("user.dir") + File.separator + "manifest.mf";
-        System.out.println("File\t\t: "+file);
-        System.out.println("MD5 checksum\t: "+hashFile(file));
+        System.out.println("File\t\t: " + file);
+        System.out.println("MD5 checksum\t: " + hashFile(file));
     }
 }

@@ -8,10 +8,10 @@ import javax.crypto.*;
  *
  * @author avrians
  */
-
 public class DESEncryptDecrypt {
-    public static void doEncryptDecrypt(){
-        try{
+
+    public static void doEncryptDecrypt() {
+        try {
             String data = "Dasar Symmetric Cryptography";
             byte[] plain = data.getBytes("UTF8");
             //membuat DES private key
@@ -22,22 +22,23 @@ public class DESEncryptDecrypt {
             Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
             //proses encrypt
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] cipherText = cipher.doFinal (plain);
+            byte[] cipherText = cipher.doFinal(plain);
             //proses descrypt
             cipher.init(Cipher.DECRYPT_MODE, key);
-            byte[] originText = cipher.doFinal (cipherText);
-            System.out.println("Plaint Text: "+data);
-            System.out.println("Enkripsi: "+new String(cipherText, "UTF8"));
-            System.out.println("Enkripsi Heksa: "+MyStringUtils.
+            byte[] originText = cipher.doFinal(cipherText);
+            System.out.println("Plaint Text: " + data);
+            System.out.println("Enkripsi: " + new String(cipherText, "UTF8"));
+            System.out.println("Enkripsi Heksa: " + MyStringUtils.
                     getHexString(cipherText));
-            System.out.println("Deskripsi: "+new String(originText, "UTF8"));
-        } catch (UnsupportedEncodingException | InvalidKeyException |
-                NoSuchAlgorithmException | BadPaddingException |
-                IllegalBlockSizeException | NoSuchPaddingException e) {
-            
+            System.out.println("Deskripsi: " + new String(originText, "UTF8"));
+        } catch (UnsupportedEncodingException | InvalidKeyException
+                | NoSuchAlgorithmException | BadPaddingException
+                | IllegalBlockSizeException | NoSuchPaddingException e) {
+
         }
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         doEncryptDecrypt();
     }
 }
